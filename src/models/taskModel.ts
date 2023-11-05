@@ -23,12 +23,12 @@ const taskSchema = new mongoose.Schema(
         required: true,
     },
     dateToStart : {
-        type: Date,
+        type: String,
         required: true,
     },
     dateToFinish : {
-        type: Date,
-        required: false,
+        type: String,
+        required: true,
     },
     reference : {
         type: String,

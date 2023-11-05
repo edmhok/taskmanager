@@ -71,20 +71,12 @@ function TaskForm({ task, setTask, onSave }: { task: taskInterface, setTask: any
 
             <div className="flex flex-col">
                 <label htmlFor='dateToStart'>Date to Start</label>
-                <input
-                    type="date"
-                    value={task.dateToStart}
-                    onChange={(e) => setTask({ ...task, dateToStart: e.target.value })}
-                />
+                <input type="date" value={task.dateToStart} onChange={(e) => setTask({ ...task, dateToStart: e.target.value })} />
             </div>
 
             <div className="flex flex-col">
                 <label htmlFor='dateToFinish'>Date to Finish</label>
-                <input
-                    type="date"
-                    value={task.dateToFinish}
-                    onChange={(e) => setTask({ ...task, dateToFinish: e.target.value })}
-                />
+                <input type="date" value={task.dateToFinish} onChange={(e) => setTask({ ...task, dateToFinish: e.target.value })} />
             </div>
 
             <div className="col-span-3 flex justify-end gap-10">

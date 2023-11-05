@@ -1,24 +1,26 @@
 
 //to make it Server Component
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// export const dynamic = 'force-dynamic'
+// export const revalidate = 0
 import React from 'react';
 import Link from 'next/link';
 import { cookies } from "next/headers";
-import axios from "axios";
 import { taskInterface } from '@/interfaces';
+import DeleteTaskBtn from './_components/DeleteTask';
 
 export async function getTasks() {
     try {
         const cookieStore = cookies();
         const token = cookieStore.get("token")?.value;
         const endPoint = `${process.env.domain}/api/tasks`;
-        const response = await axios.get(endPoint, {
+        const response = await fetch(endPoint, {
+            cache: "no-cache",
             headers: {
                 Cookie: `token=${token}`
             },
         });
-        return response.data.data;
+        const { data } = await response.json();
+        return data;
     } catch (error) {
         return [];
     }
@@ -43,9 +45,6 @@ async function Tasks() {
                     <Link href="/tasks/addTask">New Task</Link>
                 </button>
             </div>
-
-            {/* to Test tasks
-            {tasks?.length} */}
 
             <div className="flex flex-col gap-5 mt-5">
                 {tasks.map((task: taskInterface) => (
@@ -77,8 +76,8 @@ async function Tasks() {
                         <div className="grid grid-cols-3 gap-5">
                             {getProperty("Status", task.status)}
                             {getProperty("Category", task.category)}
-                            {getProperty("Date to Start", new Date(task.dateToStart).toLocaleDateString())}
-                            {getProperty("Date to Finish", new Date(task.dateToFinish).toLocaleDateString())}
+                            {getProperty("Date to Start", new Date(task.dateToStart).toLocaleDateString('en'))}
+                            {getProperty("Date to Finish", new Date(task.dateToFinish).toLocaleDateString('en'))}
                             {getProperty("Reference", task.reference)}
                             {getProperty("Priority", task.priority)}
 
@@ -93,7 +92,7 @@ async function Tasks() {
                         </div>
 
                         <div className="flex justify-end gap-5">
-                            <button className="btn-outlined">Delete</button>
+                            <DeleteTaskBtn taskid={task._id || ""} />
                             <button className="btn-primary">
                                 <Link href={`/tasks/editTask?taskid=${task._id}`}>Edit</Link>
                             </button>

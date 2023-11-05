@@ -38,3 +38,18 @@ export async function PUT(request: NextRequest,
         
     }
 }
+
+export async function DELETE(request: NextRequest, 
+    { params } : { params : { taskid : string }}
+    ) {
+    try {
+        const userId = await validateJWTandGetUserId(request);
+        await Task.findOneAndDelete({ user: userId , _id: params.taskid });
+        return NextResponse.json(
+            { message: "Task deleted successfully" },
+            { status: 200 }
+        );
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}

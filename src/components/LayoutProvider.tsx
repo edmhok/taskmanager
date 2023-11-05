@@ -60,9 +60,11 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                 {!isPublicRoute ? (
                     <div>
                         <div className="mx-10 bg-primary text-white p-5 flex justify-between items-center rounded-b">
-                            <h1 className='text-2xl font-bold'>Next - TM</h1>
+                            <h1 className="text-2xl font-bold cursor-pointer"
+                                onClick={() => router.push("/")}
+                            >Next - TM</h1>
                             <div className="flex gap-2">
-                                <h1 className="underline cursor-pointer ">
+                                <h1 className="underline cursor-pointer">
                                     {currentUser?.username}
                                 </h1>
                                 <i className="ri-logout-box-r-line cursor-pointer"

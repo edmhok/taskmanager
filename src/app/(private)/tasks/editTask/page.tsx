@@ -1,18 +1,17 @@
 'use client'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
 import TaskForm from '@/components/TaskForm';
 import { taskInterface } from '@/interfaces';
-import { SetLoading } from '@/redux/loaderSlice';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
+import { SetLoading } from '@/redux/loaderSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 function EditTask() {
     const searchParams = useSearchParams();
     const taskid = searchParams.get("taskid");
-    const dispatch = useDispatch();
     const [task, setTask] = useState<taskInterface>({
         title: "",
         description: "",
@@ -24,6 +23,7 @@ function EditTask() {
         reference: "",
     });
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const onSave = async () => {
         try {
@@ -55,6 +55,7 @@ function EditTask() {
     useEffect(() => {
         getTasks();
     }, [taskid])
+
 
     return (
         <div>

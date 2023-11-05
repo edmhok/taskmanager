@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
     try {
         const userId = await validateJWTandGetUserId(request);
-        const tasks = await Task.find({ user: userId});
+        const tasks = await Task.find({ user: userId }).sort({ createdAt: -1});
         return NextResponse.json(
             { data: tasks },
             { status: 200 }
